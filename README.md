@@ -1,8 +1,10 @@
-# Nobust: No Bullshit State
+# Nobust
 
-100% magic-free!
-Code you can use!
-Shit you can understand!
+No bullsh*t state management for Dart and Flutter.
+
+* 100% magic-free!
+* Code you can use!
+* Sh*t you can understand!
 
 Created from templates made available by Stagehand under a BSD-style
 [license](https://github.com/dart-lang/stagehand/blob/master/LICENSE).
