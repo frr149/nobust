@@ -1,16 +1,16 @@
-class Notification<Sender, Payload> {
+class Notification {
   // Fields
   late final String _name;
-  late final Sender? _sender;
-  late final Payload? _payload;
+  late final Object? _sender;
+  late final Object? _payload;
 
   // Accessors
   String get name => _name;
-  Sender? get sender => _sender;
-  Payload? get payload => _payload;
+  Object? get sender => _sender;
+  Object? get payload => _payload;
 
   // Constructors
-  Notification({required String name, Sender? sender, Payload? payload})
+  Notification({required String name, Object? sender, Object? payload})
       : _name = name,
         _sender = sender,
         _payload = payload;
