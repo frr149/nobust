@@ -1,7 +1,7 @@
 class Notification {
   // Fields
   late final String _name;
-  late final Object? _sender;
+  late final Object _sender;
   late final Object? _payload;
 
   // Accessors
@@ -10,7 +10,7 @@ class Notification {
   Object? get payload => _payload;
 
   // Constructors
-  Notification({required String name, Object? sender, Object? payload})
+  Notification({required String name, required Object sender, Object? payload})
       : _name = name,
         _sender = sender,
         _payload = payload;

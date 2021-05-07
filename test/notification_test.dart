@@ -12,16 +12,16 @@ void main() {
   late Notification n4;
   late Notification n5;
   setUp(() {
-    n1 = Notification(name: kName);
+    n1 = Notification(name: kName, sender: kSender);
     n2 = Notification(name: kName, sender: kSender);
-    n3 = Notification(name: kName, payload: kPayload);
+    n3 = Notification(name: kName, sender: kSender, payload: kPayload);
     n4 = Notification(name: kName, sender: kSender, payload: kPayload);
     n5 = Notification(name: kName, sender: kSender, payload: kPayload);
   });
 
   group('creation & access', () {
     test('create', () {
-      expect(Notification(name: kName), isNotNull);
+      expect(Notification(name: kName, sender: kSender), isNotNull);
       expect(Notification(name: kName, sender: kSender), isNotNull);
       expect(Notification(name: kName, sender: kSender, payload: kPayload),
           isNotNull);
@@ -31,7 +31,7 @@ void main() {
   group("value", () {
     test('equality', () {
       expect(n1, n1);
-      expect(n1, Notification(name: kName));
+      expect(n1, Notification(name: kName, sender: kSender));
 
       expect(n4, Notification(name: kName, sender: kSender, payload: kPayload));
       expect(n3, n3);
