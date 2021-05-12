@@ -62,7 +62,7 @@ void main() {
       expect(NotificationCenter.defaultCenter.length, 1);
 
       NotificationCenter.defaultCenter
-          .specificUnfollow(kNotificationName1, m, n, n.inc);
+          .specificUnfollow(kNotificationName1, m, n);
       expect(NotificationCenter.defaultCenter.length, 0);
     });
   });

@@ -31,9 +31,8 @@ class NotificationCenter {
   }
 
   /// Unfollow this notification name, no matter from who
-  void topicUnfollow(
-      String name, Object receiver, NotificationCallback callback) {
-    final tf = Follower.topicFollower(name, receiver, callback);
+  void topicUnfollow(String name, Object receiver) {
+    final tf = Follower.topicFollower(name, receiver, _nopCallback);
     _unfollow(tf);
   }
 
@@ -44,9 +43,8 @@ class NotificationCenter {
     _follow(ff);
   }
 
-  void fanUnfollow(
-      Object sender, Object receiver, NotificationCallback callback) {
-    final ff = Follower.fanFollower(sender, receiver, callback);
+  void fanUnfollow(Object sender, Object receiver) {
+    final ff = Follower.fanFollower(sender, receiver, _nopCallback);
     _unfollow(ff);
   }
 
@@ -57,9 +55,8 @@ class NotificationCenter {
     _follow(sf);
   }
 
-  void specificUnfollow(String name, Object sender, Object receiver,
-      NotificationCallback callback) {
-    final sf = Follower.compositeFollower(name, sender, receiver, callback);
+  void specificUnfollow(String name, Object sender, Object receiver) {
+    final sf = Follower.compositeFollower(name, sender, receiver, _nopCallback);
     _unfollow(sf);
   }
 
@@ -77,4 +74,8 @@ class NotificationCenter {
   void zap() {
     _queue = [];
   }
+
+  /// NOP callback used for the unfollows. There's no need for the user to provide
+  /// the callback on the unfollow as it's not used for identity of the Follower.
+  void _nopCallback(Notification n) {}
 }

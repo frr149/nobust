@@ -49,7 +49,7 @@ void main() {
       }
       expect(NotificationCenter.defaultCenter.length, 1);
 
-      NotificationCenter.defaultCenter.fanUnfollow(m, n, n.inc);
+      NotificationCenter.defaultCenter.fanUnfollow(m, n);
       expect(NotificationCenter.defaultCenter.length, 0);
     });
   });
