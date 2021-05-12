@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:meta/meta.dart';
 import 'package:nobust/src/notification.dart';
 import 'package:nobust/src/followers.dart';
@@ -62,11 +64,30 @@ class NotificationCenter {
 
   // Send
   void send(Notification notification) {
-    _queue.forEach((element) {
-      if (element.isFollowing(notification)) {
-        element.notify(notification);
+    _queue.forEach((recipient) {
+      if (recipient.isFollowing(notification)) {
+        _send(recipient, notification);
       }
     });
+  }
+
+  void sendLater(Notification notification) {
+    _queue.forEach((recipient) {
+      if (recipient.isFollowing(notification)) {
+        _send(recipient, notification, isDelayed: true);
+      }
+    });
+  }
+
+  void _send(Follower recipient, Notification notification,
+      {bool isDelayed = false}) {
+    if (isDelayed) {
+      Timer.run(() {
+        recipient.notify(notification);
+      });
+    } else {
+      recipient.notify(notification);
+    }
   }
 
   /// Removes all followers from the list. Used for testing mostly.
