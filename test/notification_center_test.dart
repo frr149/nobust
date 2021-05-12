@@ -1,45 +1,34 @@
 import 'package:nobust/nobust.dart';
+import 'package:nobust/src/followers.dart';
 import 'package:nobust/src/notification_center.dart';
 import 'package:test/test.dart';
 
-class _NotificationCounter {
-  int _count = 0;
-  int get count => _count;
-
-  void inc(Notification notification) => _count++;
-}
-
-const String kNotificationName1 =
-    "Your bones don't break, mine do. That's clear.";
-const String kNotificationName2 =
-    'The path of the righteous man is beset on all sides';
-const int dummyReceiver = 42;
-void callback(Notification n) {}
+import 'utils.dart';
 
 void main() {
   const String dummySender = "dummy";
-  late _NotificationCounter counter;
+  late NotificationCounter counter;
   late Notification notification;
-  late _NotificationCounter counter2;
+  late NotificationCounter counter2;
   late Notification notification2;
-  late UniversalFollower f1;
-  late UniversalFollower f2;
-  late UniversalFollower f3;
-  late UniversalFollower f4;
-  late UniversalFollower f5;
+  late TopicFollower f1;
+  late TopicFollower f2;
+  late TopicFollower f3;
+  late TopicFollower f4;
+  late TopicFollower f5;
 
   setUp(() {
     // Follower
-    f1 = UniversalFollower(kNotificationName1, dummyReceiver, callback);
-    f2 = UniversalFollower(kNotificationName1, dummyReceiver, callback);
-    f3 = UniversalFollower(kNotificationName2, dummyReceiver, callback);
-    f4 = UniversalFollower(kNotificationName2, f1, callback);
-    f5 = UniversalFollower(kNotificationName1, f1, callback);
+    f1 = TopicFollower(kNotificationName1, dummyReceiver, callback);
+    f2 = TopicFollower(kNotificationName1, dummyReceiver, callback);
+    f3 = TopicFollower(kNotificationName2, dummyReceiver, callback);
+    f4 = TopicFollower(kNotificationName2, f1, callback);
+    f5 = TopicFollower(kNotificationName1, f1, callback);
 
-    counter = _NotificationCounter();
+    counter = NotificationCounter();
     notification = Notification(name: kNotificationName1, sender: dummySender);
 
-    counter2 = _NotificationCounter();
+    counter2 = NotificationCounter();
     notification2 = Notification(name: kNotificationName2, sender: dummySender);
   });
 
@@ -62,7 +51,7 @@ void main() {
       const int n = 42;
       for (int i = 0; i < n; i++) {
         NotificationCenter.defaultCenter
-            .followAll(kNotificationName1, counter, counter.inc);
+            .topicFollow(kNotificationName1, counter, counter.inc);
       }
       expect(NotificationCenter.defaultCenter.length, 1);
     });
@@ -70,9 +59,9 @@ void main() {
     test("add n times different follower, length es n", () {
       const int n = 42;
       for (int i = 0; i < n; i++) {
-        final _NotificationCounter c = _NotificationCounter();
+        final NotificationCounter c = NotificationCounter();
         NotificationCenter.defaultCenter
-            .followAll(kNotificationName1, c, c.inc);
+            .topicFollow(kNotificationName1, c, c.inc);
       }
       expect(NotificationCenter.defaultCenter.length, n);
     });
@@ -80,9 +69,9 @@ void main() {
     test("after zapping, length es 0", () {
       const int n = 42;
       for (int i = 0; i < n; i++) {
-        final _NotificationCounter c = _NotificationCounter();
+        final NotificationCounter c = NotificationCounter();
         NotificationCenter.defaultCenter
-            .followAll(kNotificationName1, c, c.inc);
+            .topicFollow(kNotificationName1, c, c.inc);
       }
       NotificationCenter.defaultCenter.zap();
       expect(NotificationCenter.defaultCenter.length, 0);
@@ -91,7 +80,7 @@ void main() {
 
   group("Follower helper class", () {
     test("creation", () {
-      expect(UniversalFollower(kNotificationName1, dummyReceiver, callback),
+      expect(TopicFollower(kNotificationName1, dummyReceiver, callback),
           isNotNull);
     });
 
@@ -118,14 +107,14 @@ void main() {
 
     test('follow and send gets 1 notification', () {
       NotificationCenter.defaultCenter
-          .followAll(kNotificationName1, counter, counter.inc);
+          .topicFollow(kNotificationName1, counter, counter.inc);
       NotificationCenter.defaultCenter.send(notification);
       expect(counter.count, 1);
     });
 
     test('Sending the wrong notification is a NOP', () {
       NotificationCenter.defaultCenter
-          .followAll(kNotificationName1, counter, counter.inc);
+          .topicFollow(kNotificationName1, counter, counter.inc);
 
       NotificationCenter.defaultCenter
           .send(Notification(name: 'notInTheList', sender: dummySender));
@@ -140,10 +129,10 @@ void main() {
 
     test('Following many times is the same as following once', () {
       NotificationCenter.defaultCenter
-          .followAll(kNotificationName1, counter, counter.inc);
+          .topicFollow(kNotificationName1, counter, counter.inc);
 
       NotificationCenter.defaultCenter
-          .followAll(kNotificationName1, counter, counter.inc);
+          .topicFollow(kNotificationName1, counter, counter.inc);
 
       NotificationCenter.defaultCenter.send(notification);
       expect(counter.count, 1);
@@ -151,10 +140,10 @@ void main() {
 
     test('Same follower and 2 notifications, gets 2', () {
       NotificationCenter.defaultCenter
-          .followAll(kNotificationName1, counter, counter.inc);
+          .topicFollow(kNotificationName1, counter, counter.inc);
 
       NotificationCenter.defaultCenter
-          .followAll(kNotificationName2, counter, counter.inc);
+          .topicFollow(kNotificationName2, counter, counter.inc);
 
       NotificationCenter.defaultCenter.send(notification);
       NotificationCenter.defaultCenter.send(notification2);
@@ -163,10 +152,10 @@ void main() {
 
     test('Two followers and 2 notifications, each gets 1', () {
       NotificationCenter.defaultCenter
-          .followAll(kNotificationName1, counter, counter.inc);
+          .topicFollow(kNotificationName1, counter, counter.inc);
 
       NotificationCenter.defaultCenter
-          .followAll(kNotificationName2, counter2, counter2.inc);
+          .topicFollow(kNotificationName2, counter2, counter2.inc);
 
       expect(counter.count, 0);
       expect(counter2.count, 0);

@@ -9,6 +9,7 @@ linter:
   rules:
     no_runtimeType_toString: false 
     unrelated_type_equality_checks: false
+    avoid_function_literals_in_foreach_calls: false
     
     
 
