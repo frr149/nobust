@@ -12,7 +12,7 @@ class NotificationCenter {
   static final defaultCenter = NotificationCenter._defaultCenter();
 
   // NotificationQueue
-  List<Follower> _queue = [];
+  Followers _queue = [];
 
   // adds / removes followers to the queue
   void _follow(Follower follower) {
