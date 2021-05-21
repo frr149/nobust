@@ -2,6 +2,7 @@ import 'package:nobust/src/notification.dart';
 import 'package:meta/meta.dart';
 
 typedef NotificationCallback = void Function(Notification notification);
+typedef Followers = List<Follower>;
 
 /// Class that wraps together the name of the notification, the follower and t
 /// he callback we must call.
