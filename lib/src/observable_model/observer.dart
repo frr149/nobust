@@ -1,6 +1,5 @@
 import 'package:nobust/nobust.dart';
 import 'package:nobust/src/notification.dart';
-import 'package:uuid/uuid.dart';
 import 'package:nobust/src/observable_model/model.dart';
 
 class Observer {

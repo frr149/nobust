@@ -27,14 +27,6 @@ void main() {
     NotificationCenter.defaultCenter.zap();
   });
 
-  group('Observer', () {
-    test('All null-observers are identical', () {
-      final n1 = NullObserver.shared;
-      final n2 = NullObserver.shared;
-      expect(identical(n1, n2), isTrue);
-    });
-  });
-
   group('model', () {
     test('all models have different changeNotificationName', () {
       expect(Model().changeNotificationName != Model().changeNotificationName,
