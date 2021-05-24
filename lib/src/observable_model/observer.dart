@@ -18,23 +18,3 @@ class Observer {
         .specificUnfollow(model.changeNotificationName, model, this);
   }
 }
-
-class NullObserver extends Observer {
-  // Flyweight
-  NullObserver._shared();
-  static final shared = NullObserver._shared();
-
-  @override
-  void onModelChange(Notification notification) {
-    // NOP
-  }
-  @override
-  void follow(Model model) {
-    // NOP
-  }
-
-  @override
-  void unFollow(Model model) {
-    // NOP
-  }
-}
