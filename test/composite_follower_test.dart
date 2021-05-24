@@ -9,17 +9,17 @@ void main() {
   late Follower sf1;
   late Follower sf2;
   late Follower sf3;
-  late Model model;
+  late TestNotifier notifier;
   const otherReceiver = 675;
 
   setUp(() {
-    model = Model();
+    notifier = TestNotifier();
     sf1 = Follower.compositeFollower(
-        kNotificationName1, model, dummyReceiver, callback);
+        kNotificationName1, notifier, dummyReceiver, callback);
     sf2 = Follower.compositeFollower(
-        kNotificationName1, model, dummyReceiver, callback);
+        kNotificationName1, notifier, dummyReceiver, callback);
     sf3 = Follower.compositeFollower(
-        kNotificationName2, model, otherReceiver, callback);
+        kNotificationName2, notifier, otherReceiver, callback);
   });
   tearDown(() {
     NotificationCenter.defaultCenter.zap();
@@ -29,7 +29,7 @@ void main() {
     test("can create", () {
       expect(
           Follower.compositeFollower(
-              kNotificationName2, model, dummyReceiver, callback),
+              kNotificationName2, notifier, dummyReceiver, callback),
           isNotNull);
     });
   });
@@ -72,7 +72,7 @@ void main() {
     const int size = 99;
 
     for (int i = 0; i < size; i++) {
-      final m = Model.sized(i);
+      final m = TestNotifier.sized(i);
       NotificationCenter.defaultCenter
           .specificFollow(kNotificationName1, m, n, n.inc);
     }

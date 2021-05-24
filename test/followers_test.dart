@@ -9,12 +9,12 @@ void main() {
   late NotificationCounter receiver2;
   late NotificationCounter receiver3;
 
-  late Model sender1;
-  late Model sender2;
+  late TestNotifier sender1;
+  late TestNotifier sender2;
 
   setUp(() {
-    sender1 = Model.sized(42);
-    sender2 = Model.sized(2);
+    sender1 = TestNotifier.sized(42);
+    sender2 = TestNotifier.sized(2);
     receiver1 = NotificationCounter();
     receiver2 = NotificationCounter();
     receiver3 = NotificationCounter();

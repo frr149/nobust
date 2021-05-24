@@ -17,11 +17,11 @@ class NotificationCounter {
 }
 
 //Sends notifications
-class Model {
+class TestNotifier {
   int i = 0;
 
-  Model();
-  Model.sized(this.i);
+  TestNotifier();
+  TestNotifier.sized(this.i);
 
   void send(String name) {
     final Notification n = Notification(name: name, sender: this);
@@ -33,7 +33,7 @@ class Model {
     if (identical(this, other)) {
       return true;
     } else {
-      return other is Model && i == other.i;
+      return other is TestNotifier && i == other.i;
     }
   }
 

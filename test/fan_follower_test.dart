@@ -9,10 +9,10 @@ void main() {
   late Follower tf1;
   late Follower tf2;
   late Follower tf3;
-  late Model model;
+  late TestNotifier model;
 
   setUp(() {
-    model = Model();
+    model = TestNotifier();
     tf1 = Follower.fanFollower(model, dummyReceiver, callback);
     tf2 = Follower.fanFollower(model, dummyReceiver, callback);
     tf3 = Follower.fanFollower(42, "receiver", callback);
@@ -59,7 +59,7 @@ void main() {
     const int size = 99;
 
     for (int i = 0; i < size; i++) {
-      final m = Model.sized(i);
+      final m = TestNotifier.sized(i);
       NotificationCenter.defaultCenter.fanFollow(m, n, n.inc);
     }
 
@@ -68,7 +68,7 @@ void main() {
 
   group("sending", () {
     test("sender send n notifications, receiver gets n", () {
-      final sender = Model();
+      final sender = TestNotifier();
       final receiver = NotificationCounter();
       const int n = 150;
 
