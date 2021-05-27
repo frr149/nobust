@@ -1,4 +1,4 @@
-import 'package:nobust/src/notification.dart';
+import 'package:notifications/src/notification.dart';
 import 'package:meta/meta.dart';
 
 typedef NotificationCallback = void Function(Notification notification);

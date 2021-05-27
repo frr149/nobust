@@ -1,6 +1,6 @@
-import 'package:nobust/nobust.dart';
-import 'package:nobust/src/followers.dart';
-import 'package:nobust/src/notification_center.dart';
+import 'package:notifications/notifications.dart';
+import 'package:notifications/src/followers.dart';
+import 'package:notifications/src/notification_center.dart';
 import 'package:test/test.dart';
 
 import 'utils.dart';

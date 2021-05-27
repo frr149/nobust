@@ -1,6 +1,6 @@
-import 'package:nobust/nobust.dart';
-import 'package:nobust/src/notification_center.dart';
-import 'package:nobust/src/followers.dart';
+import 'package:notifications/notifications.dart';
+import 'package:notifications/src/notification_center.dart';
+import 'package:notifications/src/followers.dart';
 import 'package:test/test.dart';
 
 import 'utils.dart';
@@ -52,7 +52,7 @@ void main() {
 
   group("Adding ", () {
     test("Adding the same follower is a NOP", () {
-      final m = Model();
+      final m = TestNotifier();
       final n = NotificationCounter();
 
       for (int i = 0; i < 20; i++) {

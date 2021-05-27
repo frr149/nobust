@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:meta/meta.dart';
-import 'package:nobust/src/notification.dart';
-import 'package:nobust/src/followers.dart';
+import 'package:notifications/src/notification.dart';
+import 'package:notifications/src/followers.dart';
 
 class NotificationCenter {
   int get length => _queue.length;

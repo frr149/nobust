@@ -1,4 +1,4 @@
-import 'package:nobust/nobust.dart';
+import 'package:notifications/notifications.dart';
 
 const String kNotificationName1 =
     "Your bones don't break, mine do. That's clear.";

@@ -1,4 +1,4 @@
-import 'package:nobust/nobust.dart';
+import 'package:notifications/notifications.dart';
 import 'package:test/test.dart';
 
 void main() {
