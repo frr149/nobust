@@ -1,4 +1,4 @@
-import 'package:notifications/notifications.dart';
+import 'package:notice_service/notices.dart';
 import 'package:test/test.dart';
 
 void main() {

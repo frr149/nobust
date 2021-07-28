@@ -1,6 +1,6 @@
-import 'package:notifications/notifications.dart';
-import 'package:notifications/src/followers.dart';
-import 'package:notifications/src/notification_center.dart';
+import 'package:notice_service/notices.dart';
+import 'package:notice_service/src/followers.dart';
+import 'package:notice_service/src/notice_center.dart';
 import 'package:test/test.dart';
 
 import 'utils.dart';
