@@ -18,7 +18,7 @@ void main() {
     tf3 = Follower.fanFollower(42, "receiver", callback);
   });
   tearDown(() {
-    NotificationCenter.defaultCenter.zap();
+    NoticeCenter.defaultCenter.zap();
   });
 
   group("creation & equality", () {
@@ -42,41 +42,40 @@ void main() {
   group("Adding several times ", () {
     test("Adding the same follower is a NOP", () {
       final m = TestNotifier();
-      final n = NotificationCounter();
+      final n = NoticeCounter();
 
       for (int i = 0; i < 20; i++) {
-        NotificationCenter.defaultCenter.followSender(m, n, n.inc);
+        NoticeCenter.defaultCenter.followSender(m, n, n.inc);
       }
-      expect(NotificationCenter.defaultCenter.length, 1);
+      expect(NoticeCenter.defaultCenter.length, 1);
 
-      NotificationCenter.defaultCenter.unfollowSender(m, n);
-      expect(NotificationCenter.defaultCenter.length, 0);
+      NoticeCenter.defaultCenter.unfollowSender(m, n);
+      expect(NoticeCenter.defaultCenter.length, 0);
     });
   });
 
   test("Adding n different followers, length is n", () {
-    final n = NotificationCounter();
+    final n = NoticeCounter();
     const int size = 99;
 
     for (int i = 0; i < size; i++) {
       final m = TestNotifier.sized(i);
-      NotificationCenter.defaultCenter.followSender(m, n, n.inc);
+      NoticeCenter.defaultCenter.followSender(m, n, n.inc);
     }
 
-    expect(NotificationCenter.defaultCenter.length, size);
+    expect(NoticeCenter.defaultCenter.length, size);
   });
 
   group("sending", () {
-    test("sender send n notifications, receiver gets n", () {
+    test("sender send n Notices, receiver gets n", () {
       final sender = TestNotifier();
-      final receiver = NotificationCounter();
+      final receiver = NoticeCounter();
       const int n = 150;
 
-      NotificationCenter.defaultCenter
-          .followSender(sender, receiver, receiver.inc);
+      NoticeCenter.defaultCenter.followSender(sender, receiver, receiver.inc);
 
       for (int i = 0; i < n; i++) {
-        sender.send('Notification #$i');
+        sender.send('Notice #$i');
       }
       expect(receiver.count, n);
     });

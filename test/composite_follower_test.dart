@@ -15,21 +15,21 @@ void main() {
   setUp(() {
     notifier = TestNotifier();
     sf1 = Follower.compositeFollower(
-        kNotificationName1, notifier, dummyReceiver, callback);
+        kNoticeName1, notifier, dummyReceiver, callback);
     sf2 = Follower.compositeFollower(
-        kNotificationName1, notifier, dummyReceiver, callback);
+        kNoticeName1, notifier, dummyReceiver, callback);
     sf3 = Follower.compositeFollower(
-        kNotificationName2, notifier, otherReceiver, callback);
+        kNoticeName2, notifier, otherReceiver, callback);
   });
   tearDown(() {
-    NotificationCenter.defaultCenter.zap();
+    NoticeCenter.defaultCenter.zap();
   });
 
   group("creation", () {
     test("can create", () {
       expect(
           Follower.compositeFollower(
-              kNotificationName2, notifier, dummyReceiver, callback),
+              kNoticeName2, notifier, dummyReceiver, callback),
           isNotNull);
     });
   });
@@ -53,28 +53,27 @@ void main() {
   group("Adding ", () {
     test("Adding the same follower is a NOP", () {
       final m = TestNotifier();
-      final n = NotificationCounter();
+      final n = NoticeCounter();
 
       for (int i = 0; i < 20; i++) {
-        NotificationCenter.defaultCenter
-            .follow(kNotificationName1, m, n, n.inc);
+        NoticeCenter.defaultCenter.follow(kNoticeName1, m, n, n.inc);
       }
-      expect(NotificationCenter.defaultCenter.length, 1);
+      expect(NoticeCenter.defaultCenter.length, 1);
 
-      NotificationCenter.defaultCenter.unfollow(kNotificationName1, m, n);
-      expect(NotificationCenter.defaultCenter.length, 0);
+      NoticeCenter.defaultCenter.unfollow(kNoticeName1, m, n);
+      expect(NoticeCenter.defaultCenter.length, 0);
     });
   });
 
   test("Adding n different followers, length is n", () {
-    final n = NotificationCounter();
+    final n = NoticeCounter();
     const int size = 99;
 
     for (int i = 0; i < size; i++) {
       final m = TestNotifier.sized(i);
-      NotificationCenter.defaultCenter.follow(kNotificationName1, m, n, n.inc);
+      NoticeCenter.defaultCenter.follow(kNoticeName1, m, n, n.inc);
     }
 
-    expect(NotificationCenter.defaultCenter.length, size);
+    expect(NoticeCenter.defaultCenter.length, size);
   });
 }

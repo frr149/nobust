@@ -4,14 +4,14 @@ import 'package:meta/meta.dart';
 import 'package:notice_service/src/notice.dart';
 import 'package:notice_service/src/followers.dart';
 
-class NotificationCenter {
+class NoticeCenter {
   int get length => _queue.length;
 
   // Singleton
-  NotificationCenter._defaultCenter();
-  static final defaultCenter = NotificationCenter._defaultCenter();
+  NoticeCenter._defaultCenter();
+  static final defaultCenter = NoticeCenter._defaultCenter();
 
-  // NotificationQueue
+  // NoticeQueue
   Followers _queue = [];
 
   // adds / removes followers to the queue
@@ -25,22 +25,20 @@ class NotificationCenter {
     _queue.remove(follower);
   }
 
-  /// Follow every single notification with htis name, no matter who sends it
-  void followNotificationName(
-      String name, Object receiver, NotificationCallback callback) {
+  /// Follow every single Notice with htis name, no matter who sends it
+  void followNoticeName(String name, Object receiver, NoticeCallback callback) {
     final tf = Follower.topicFollower(name, receiver, callback);
     _follow(tf);
   }
 
-  /// Unfollow this notification name, no matter from who
-  void unfollowNotificationName(String name, Object receiver) {
+  /// Unfollow this Notice name, no matter from who
+  void unfollowNoticeName(String name, Object receiver) {
     final tf = Follower.topicFollower(name, receiver, _nopCallback);
     _unfollow(tf);
   }
 
-  /// Follow all notifications from a certain object
-  void followSender(
-      Object sender, Object receiver, NotificationCallback callback) {
+  /// Follow all Notices from a certain object
+  void followSender(Object sender, Object receiver, NoticeCallback callback) {
     final ff = Follower.fanFollower(sender, receiver, callback);
     _follow(ff);
   }
@@ -50,9 +48,9 @@ class NotificationCenter {
     _unfollow(ff);
   }
 
-  /// Follows only a specific notification from a given sender
-  void follow(String name, Object sender, Object receiver,
-      NotificationCallback callback) {
+  /// Follows only a specific Notice from a given sender
+  void follow(
+      String name, Object sender, Object receiver, NoticeCallback callback) {
     final sf = Follower.compositeFollower(name, sender, receiver, callback);
     _follow(sf);
   }
@@ -63,30 +61,29 @@ class NotificationCenter {
   }
 
   // Send
-  void send(Notification notification) {
+  void send(Notice Notice) {
     _queue.forEach((recipient) {
-      if (recipient.isFollowing(notification)) {
-        _send(recipient, notification);
+      if (recipient.isFollowing(Notice)) {
+        _send(recipient, Notice);
       }
     });
   }
 
-  void sendLater(Notification notification) {
+  void sendLater(Notice Notice) {
     _queue.forEach((recipient) {
-      if (recipient.isFollowing(notification)) {
-        _send(recipient, notification, isDelayed: true);
+      if (recipient.isFollowing(Notice)) {
+        _send(recipient, Notice, isDelayed: true);
       }
     });
   }
 
-  void _send(Follower recipient, Notification notification,
-      {bool isDelayed = false}) {
+  void _send(Follower recipient, Notice Notice, {bool isDelayed = false}) {
     if (isDelayed) {
       scheduleMicrotask(() {
-        recipient.notify(notification);
+        recipient.notify(Notice);
       });
     } else {
-      recipient.notify(notification);
+      recipient.notify(Notice);
     }
   }
 
@@ -98,5 +95,5 @@ class NotificationCenter {
 
   /// NOP callback used for the unfollows. There's no need for the user to provide
   /// the callback on the unfollow as it's not used for identity of the Follower.
-  void _nopCallback(Notification n) {}
+  void _nopCallback(Notice n) {}
 }

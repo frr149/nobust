@@ -1,4 +1,4 @@
-# Notifications
+# Notices
 
 No bullsh*t state management for Dart and Flutter.
 
@@ -14,7 +14,7 @@ Created from templates made available by Stagehand under a BSD-style
 A simple usage example:
 
 ```dart
-import 'package:notifications/notifications.dart';
+import 'package:Notices/Notices.dart';
 
 main() {
   var awesome = new Awesome();
