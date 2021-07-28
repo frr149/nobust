@@ -26,38 +26,38 @@ class NotificationCenter {
   }
 
   /// Follow every single notification with htis name, no matter who sends it
-  void topicFollow(
+  void followNotificationName(
       String name, Object receiver, NotificationCallback callback) {
     final tf = Follower.topicFollower(name, receiver, callback);
     _follow(tf);
   }
 
   /// Unfollow this notification name, no matter from who
-  void topicUnfollow(String name, Object receiver) {
+  void unfollowNotificationName(String name, Object receiver) {
     final tf = Follower.topicFollower(name, receiver, _nopCallback);
     _unfollow(tf);
   }
 
   /// Follow all notifications from a certain object
-  void fanFollow(
+  void followSender(
       Object sender, Object receiver, NotificationCallback callback) {
     final ff = Follower.fanFollower(sender, receiver, callback);
     _follow(ff);
   }
 
-  void fanUnfollow(Object sender, Object receiver) {
+  void unfollowSender(Object sender, Object receiver) {
     final ff = Follower.fanFollower(sender, receiver, _nopCallback);
     _unfollow(ff);
   }
 
   /// Follows only a specific notification from a given sender
-  void specificFollow(String name, Object sender, Object receiver,
+  void follow(String name, Object sender, Object receiver,
       NotificationCallback callback) {
     final sf = Follower.compositeFollower(name, sender, receiver, callback);
     _follow(sf);
   }
 
-  void specificUnfollow(String name, Object sender, Object receiver) {
+  void unfollow(String name, Object sender, Object receiver) {
     final sf = Follower.compositeFollower(name, sender, receiver, _nopCallback);
     _unfollow(sf);
   }
@@ -82,7 +82,7 @@ class NotificationCenter {
   void _send(Follower recipient, Notification notification,
       {bool isDelayed = false}) {
     if (isDelayed) {
-      Timer.run(() {
+      scheduleMicrotask(() {
         recipient.notify(notification);
       });
     } else {

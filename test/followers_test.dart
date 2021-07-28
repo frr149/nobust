@@ -20,16 +20,16 @@ void main() {
     receiver3 = NotificationCounter();
 
     NotificationCenter.defaultCenter
-        .topicFollow(kNotificationName1, receiver1, receiver1.inc);
+        .followNotificationName(kNotificationName1, receiver1, receiver1.inc);
 
     NotificationCenter.defaultCenter
-        .fanFollow(sender1, receiver3, receiver3.inc);
+        .followSender(sender1, receiver3, receiver3.inc);
 
     NotificationCenter.defaultCenter
-        .specificFollow(kNotificationName1, sender2, receiver1, receiver1.inc);
+        .follow(kNotificationName1, sender2, receiver1, receiver1.inc);
 
     NotificationCenter.defaultCenter
-        .specificFollow(kNotificationName1, sender1, receiver2, receiver2.inc);
+        .follow(kNotificationName1, sender1, receiver2, receiver2.inc);
   });
 
   tearDown(() {

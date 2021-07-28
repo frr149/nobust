@@ -45,11 +45,11 @@ void main() {
       final n = NotificationCounter();
 
       for (int i = 0; i < 20; i++) {
-        NotificationCenter.defaultCenter.fanFollow(m, n, n.inc);
+        NotificationCenter.defaultCenter.followSender(m, n, n.inc);
       }
       expect(NotificationCenter.defaultCenter.length, 1);
 
-      NotificationCenter.defaultCenter.fanUnfollow(m, n);
+      NotificationCenter.defaultCenter.unfollowSender(m, n);
       expect(NotificationCenter.defaultCenter.length, 0);
     });
   });
@@ -60,7 +60,7 @@ void main() {
 
     for (int i = 0; i < size; i++) {
       final m = TestNotifier.sized(i);
-      NotificationCenter.defaultCenter.fanFollow(m, n, n.inc);
+      NotificationCenter.defaultCenter.followSender(m, n, n.inc);
     }
 
     expect(NotificationCenter.defaultCenter.length, size);
@@ -73,7 +73,7 @@ void main() {
       const int n = 150;
 
       NotificationCenter.defaultCenter
-          .fanFollow(sender, receiver, receiver.inc);
+          .followSender(sender, receiver, receiver.inc);
 
       for (int i = 0; i < n; i++) {
         sender.send('Notification #$i');

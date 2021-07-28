@@ -57,12 +57,11 @@ void main() {
 
       for (int i = 0; i < 20; i++) {
         NotificationCenter.defaultCenter
-            .specificFollow(kNotificationName1, m, n, n.inc);
+            .follow(kNotificationName1, m, n, n.inc);
       }
       expect(NotificationCenter.defaultCenter.length, 1);
 
-      NotificationCenter.defaultCenter
-          .specificUnfollow(kNotificationName1, m, n);
+      NotificationCenter.defaultCenter.unfollow(kNotificationName1, m, n);
       expect(NotificationCenter.defaultCenter.length, 0);
     });
   });
@@ -73,8 +72,7 @@ void main() {
 
     for (int i = 0; i < size; i++) {
       final m = TestNotifier.sized(i);
-      NotificationCenter.defaultCenter
-          .specificFollow(kNotificationName1, m, n, n.inc);
+      NotificationCenter.defaultCenter.follow(kNotificationName1, m, n, n.inc);
     }
 
     expect(NotificationCenter.defaultCenter.length, size);

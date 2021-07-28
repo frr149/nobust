@@ -51,7 +51,7 @@ void main() {
       const int n = 42;
       for (int i = 0; i < n; i++) {
         NotificationCenter.defaultCenter
-            .topicFollow(kNotificationName1, counter, counter.inc);
+            .followNotificationName(kNotificationName1, counter, counter.inc);
       }
       expect(NotificationCenter.defaultCenter.length, 1);
     });
@@ -61,7 +61,7 @@ void main() {
       for (int i = 0; i < n; i++) {
         final NotificationCounter c = NotificationCounter();
         NotificationCenter.defaultCenter
-            .topicFollow(kNotificationName1, c, c.inc);
+            .followNotificationName(kNotificationName1, c, c.inc);
       }
       expect(NotificationCenter.defaultCenter.length, n);
     });
@@ -71,7 +71,7 @@ void main() {
       for (int i = 0; i < n; i++) {
         final NotificationCounter c = NotificationCounter();
         NotificationCenter.defaultCenter
-            .topicFollow(kNotificationName1, c, c.inc);
+            .followNotificationName(kNotificationName1, c, c.inc);
       }
       NotificationCenter.defaultCenter.zap();
       expect(NotificationCenter.defaultCenter.length, 0);
@@ -107,14 +107,14 @@ void main() {
 
     test('follow and send gets 1 notification', () {
       NotificationCenter.defaultCenter
-          .topicFollow(kNotificationName1, counter, counter.inc);
+          .followNotificationName(kNotificationName1, counter, counter.inc);
       NotificationCenter.defaultCenter.send(notification);
       expect(counter.count, 1);
     });
 
     test('Sending the wrong notification is a NOP', () {
       NotificationCenter.defaultCenter
-          .topicFollow(kNotificationName1, counter, counter.inc);
+          .followNotificationName(kNotificationName1, counter, counter.inc);
 
       NotificationCenter.defaultCenter
           .send(Notification(name: 'notInTheList', sender: dummySender));
@@ -129,10 +129,10 @@ void main() {
 
     test('Following many times is the same as following once', () {
       NotificationCenter.defaultCenter
-          .topicFollow(kNotificationName1, counter, counter.inc);
+          .followNotificationName(kNotificationName1, counter, counter.inc);
 
       NotificationCenter.defaultCenter
-          .topicFollow(kNotificationName1, counter, counter.inc);
+          .followNotificationName(kNotificationName1, counter, counter.inc);
 
       NotificationCenter.defaultCenter.send(notification);
       expect(counter.count, 1);
@@ -140,10 +140,10 @@ void main() {
 
     test('Same follower and 2 notifications, gets 2', () {
       NotificationCenter.defaultCenter
-          .topicFollow(kNotificationName1, counter, counter.inc);
+          .followNotificationName(kNotificationName1, counter, counter.inc);
 
       NotificationCenter.defaultCenter
-          .topicFollow(kNotificationName2, counter, counter.inc);
+          .followNotificationName(kNotificationName2, counter, counter.inc);
 
       NotificationCenter.defaultCenter.send(notification);
       NotificationCenter.defaultCenter.send(notification2);
@@ -152,10 +152,10 @@ void main() {
 
     test('Two followers and 2 notifications, each gets 1', () {
       NotificationCenter.defaultCenter
-          .topicFollow(kNotificationName1, counter, counter.inc);
+          .followNotificationName(kNotificationName1, counter, counter.inc);
 
       NotificationCenter.defaultCenter
-          .topicFollow(kNotificationName2, counter2, counter2.inc);
+          .followNotificationName(kNotificationName2, counter2, counter2.inc);
 
       expect(counter.count, 0);
       expect(counter2.count, 0);
