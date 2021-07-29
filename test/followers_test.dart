@@ -1,4 +1,4 @@
-import 'package:notice_service/notices.dart';
+import 'package:notice_service/notice_service.dart';
 import 'package:notice_service/src/notice_center.dart';
 import 'package:test/test.dart';
 

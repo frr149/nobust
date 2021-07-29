@@ -1,4 +1,4 @@
-import 'package:notice_service/notices.dart';
+import 'package:notice_service/notice_service.dart';
 
 const String kNoticeName1 = "Your bones don't break, mine do. That's clear.";
 const String kNoticeName2 =
