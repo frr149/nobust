@@ -34,12 +34,12 @@ class Follower {
     return CompositeFollower(name, receiver, sender, callback);
   }
 
-  bool isFollowing(Notice Notice) {
+  bool isFollowing(Notice notice) {
     throw UnimplementedError();
   }
 
-  void notify(Notice Notice) {
-    _callback(Notice);
+  void notify(Notice notice) {
+    _callback(notice);
   }
 }
 
@@ -50,8 +50,8 @@ class TopicFollower extends Follower {
       : super(name, receiver, callback);
 
   @override
-  bool isFollowing(Notice Notice) {
-    return Notice.name == name;
+  bool isFollowing(Notice notice) {
+    return notice.name == name;
   }
 
   @override
@@ -79,9 +79,9 @@ class FanFollower extends Follower {
         super(_kAny, receiver, callback);
 
   @override
-  bool isFollowing(Notice Notice) {
+  bool isFollowing(Notice notice) {
     // compare only the sender
-    return Notice.sender == _sender;
+    return notice.sender == _sender;
   }
 
   @override
@@ -113,8 +113,8 @@ class CompositeFollower extends Follower {
   }
 
   @override
-  bool isFollowing(Notice Notice) {
-    return _fan.isFollowing(Notice) && _topic.isFollowing(Notice);
+  bool isFollowing(Notice notice) {
+    return _fan.isFollowing(notice) && _topic.isFollowing(notice);
   }
 
   @override

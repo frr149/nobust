@@ -61,29 +61,29 @@ class NoticeCenter {
   }
 
   // Send
-  void send(Notice Notice) {
+  void send(Notice notice) {
     _queue.forEach((recipient) {
-      if (recipient.isFollowing(Notice)) {
-        _send(recipient, Notice);
+      if (recipient.isFollowing(notice)) {
+        _send(recipient, notice);
       }
     });
   }
 
-  void sendLater(Notice Notice) {
+  void sendLater(Notice notice) {
     _queue.forEach((recipient) {
-      if (recipient.isFollowing(Notice)) {
-        _send(recipient, Notice, isDelayed: true);
+      if (recipient.isFollowing(notice)) {
+        _send(recipient, notice, isDelayed: true);
       }
     });
   }
 
-  void _send(Follower recipient, Notice Notice, {bool isDelayed = false}) {
+  void _send(Follower recipient, Notice notice, {bool isDelayed = false}) {
     if (isDelayed) {
       scheduleMicrotask(() {
-        recipient.notify(Notice);
+        recipient.notify(notice);
       });
     } else {
-      recipient.notify(Notice);
+      recipient.notify(notice);
     }
   }
 

@@ -12,7 +12,7 @@ class NoticeCounter {
   int _count = 0;
   int get count => _count;
 
-  void inc(Notice Notice) => _count++;
+  void inc(Notice notice) => _count++;
 }
 
 //Sends Notices
